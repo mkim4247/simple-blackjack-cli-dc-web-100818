@@ -125,4 +125,5 @@ describe "#runner" do
     expect($stdout).to receive(:puts).with("Sorry, you hit 30. Thanks for playing!")
     runner
   end
+
 end
