@@ -1,5 +1,5 @@
 def welcome
-  puts "Welcome to the Blackjack Table"
+  puts 'Welcome to the Blackjack Table'
 end
 
 def deal_card
@@ -15,47 +15,46 @@ def prompt_user
 end
 
 def get_user_input
-  gets.chomp 
+  gets.chomp
 end
 
-def end_game(number)
-  puts "Sorry, you hit #{number}. Thanks for playing!"
+def end_game(card_total)
+  puts "Sorry, you hit #{card_total}. Thanks for playing!"
 end
 
 def initial_round
-  card_1 = deal_card 
-  card_2 = deal_card 
-  sum = card_1 + card_2
+  deal1 = deal_card
+  deal2 = deal_card
+  sum = deal1 + deal2
   display_card_total(sum)
-  sum 
-end
-
-def hit?(current_hand_total)
-  prompt_user
-  user_input = get_user_input
-  if user_input == "h"
-    current_hand_total + deal_card
-  elsif user_input == "s"
-    current_hand_total
-  end
+  return sum
 end
 
 def invalid_command
-  user_input = get_user_input
-    if user_input != "s" || "h"
-    puts "Please enter a valid command"
-    prompt_user
-  end 
+  puts "Please enter a valid command"
 end
 
-def runner 
-  welcome
-  hand = initial_round
-  until hand >= 21
-    hit?(hand)
-    hand += deal_card
-    display_card_total(hand)
+def hit?(current_card_total)
+  prompt_user
+  user_input = get_user_input
+  
+  if user_input == 's'
+    current_card_total
+  elsif user_input == 'h'
+    deal_card + current_card_total
+  else
+    invalid_command
+    prompt_user
   end
-  end_game(hand)
 end
-    
+
+def runner
+  welcome
+  sum = initial_round
+  until sum >= 21
+    hit?(sum)
+   display_card_total(sum) 
+  end
+  end_game(sum)
+end
+  
